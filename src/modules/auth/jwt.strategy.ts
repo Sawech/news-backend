@@ -5,10 +5,6 @@ import { Request } from 'express';
 import { JwtPayload } from '../../common/decorators';
 import { PrismaService } from '../../prisma/prisma.service';
 
-/**
- * Reads the JWT from the `access_token` HttpOnly cookie (preferred for browser
- * clients) and falls back to the Authorization Bearer header for API / CLI clients.
- */
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private readonly prisma: PrismaService) {
@@ -23,7 +19,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload): Promise<JwtPayload> {
-    // Verify the user still exists and hasn't been deactivated.
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
       select: { id: true, email: true, role: true },

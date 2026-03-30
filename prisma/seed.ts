@@ -14,7 +14,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
-  // ── Admin user ─────────────────────────────────────────────────────────────
   const hashedPassword = await bcrypt.hash('admin123!', 12);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@chronicler.com' },
@@ -28,7 +27,6 @@ async function main() {
   });
   console.log(`✅ Admin user: ${admin.email}`);
 
-  // ── Categories ─────────────────────────────────────────────────────────────
   const categories = await Promise.all([
     prisma.category.upsert({
       where: { slug: 'world' },
@@ -87,7 +85,6 @@ async function main() {
   ]);
   console.log(`✅ ${categories.length} categories`);
 
-  // ── Tags ───────────────────────────────────────────────────────────────────
   const tags = await Promise.all([
     prisma.tag.upsert({
       where: { slug: 'ai' },
@@ -112,7 +109,6 @@ async function main() {
   ]);
   console.log(`✅ ${tags.length} tags`);
 
-  // ── Authors ────────────────────────────────────────────────────────────────
   const author1 = await prisma.author.upsert({
     where: { slug: 'elena-thorne' },
     update: {},
@@ -135,18 +131,12 @@ async function main() {
   });
   console.log('✅ Authors created');
 
-  // ── Tickers ────────────────────────────────────────────────────────────────
   const tickerContents = [
     'G7 summit concludes with landmark digital trade agreement',
     'Markets rally as inflation data comes in below expectations',
     'New climate report warns of accelerating sea level rise',
     'Tech giants face fresh antitrust scrutiny in Brussels',
   ];
-
-  for (const content of tickerContents) {
-    // Tickers have no unique field besides id, so we use createMany with skipDuplicates
-    // strategy: only seed if none exist yet.
-  }
 
   const tickerCount = await prisma.ticker.count();
   if (tickerCount === 0) {
@@ -158,7 +148,6 @@ async function main() {
     console.log(`⏩ Tickers already seeded (${tickerCount} found), skipping`);
   }
 
-  // ── Sample Articles ────────────────────────────────────────────────────────
   const article1 = await prisma.article.upsert({
     where: { slug: 'architecture-of-silence-global-data-sovereignty' },
     update: {},

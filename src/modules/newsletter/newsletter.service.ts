@@ -19,7 +19,6 @@ export class NewsletterService {
     return { message: 'Successfully subscribed to the newsletter' };
   }
 
-  /** Admin-only: list all subscribers with pagination */
   async findAll(page = 1, limit = 50) {
     const skip = (page - 1) * limit;
 

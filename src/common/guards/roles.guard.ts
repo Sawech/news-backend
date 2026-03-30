@@ -17,16 +17,12 @@ export class RolesGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
-    // No @Roles() decorator — route is accessible to any authenticated user.
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;
     }
 
     const { user } = context.switchToHttp().getRequest<{ user: JwtPayload }>();
 
-    // If @Roles() is present but there is no authenticated user, deny access.
-    // JwtAuthGuard should have already rejected the request before we reach
-    // this point — this guard is a safety net for misconfigured routes.
     if (!user) {
       throw new ForbiddenException('Insufficient permissions');
     }

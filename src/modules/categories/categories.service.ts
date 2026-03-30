@@ -10,8 +10,6 @@ import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
 export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // ── Public ─────────────────────────────────────────────────────────────────
-
   async findAll() {
     const data = await this.prisma.category.findMany({
       orderBy: { name: 'asc' },
@@ -24,8 +22,6 @@ export class CategoriesService {
     if (!category) throw new NotFoundException(`Category "${slug}" not found`);
     return { data: category };
   }
-
-  // ── Admin ──────────────────────────────────────────────────────────────────
 
   async adminFindAll() {
     const data = await this.prisma.category.findMany({

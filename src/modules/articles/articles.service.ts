@@ -12,8 +12,6 @@ import {
   AdminArticleQueryDto,
 } from './dto/article.dto';
 
-// Single source of truth for which relations are loaded with every article query.
-// Keeping this as a const avoids copy-paste drift across findAll / findOne / create.
 const ARTICLE_INCLUDE = {
   author: {
     select: { id: true, name: true, slug: true, bio: true, avatarUrl: true },
@@ -29,8 +27,6 @@ const ARTICLE_INCLUDE = {
 @Injectable()
 export class ArticlesService {
   constructor(private readonly prisma: PrismaService) {}
-
-  // ── Public ─────────────────────────────────────────────────────────────────
 
   async findAll(query: ArticleQueryDto) {
     const { page = 1, limit = 20, category, featured, trending } = query;
@@ -68,7 +64,6 @@ export class ArticlesService {
 
     if (!article) throw new NotFoundException(`Article "${slug}" not found`);
 
-    // Related articles: same category, different id, newest first
     const related = await this.prisma.article.findMany({
       where: {
         categoryId: article.categoryId,
@@ -113,8 +108,6 @@ export class ArticlesService {
       meta: { page, limit, total, totalPages: Math.ceil(total / limit) },
     };
   }
-
-  // ── Admin ──────────────────────────────────────────────────────────────────
 
   async adminFindAll(query: AdminArticleQueryDto) {
     const { page = 1, limit = 20, status, search } = query;
@@ -170,7 +163,6 @@ export class ArticlesService {
       data: {
         ...rest,
         userId,
-        // Stamp publishedAt the moment status becomes PUBLISHED
         publishedAt: dto.status === 'PUBLISHED' ? new Date() : undefined,
         tags: tagIds?.length
           ? {
@@ -187,12 +179,10 @@ export class ArticlesService {
   }
 
   async update(id: string, dto: UpdateArticleDto) {
-    // Throws 404 if article doesn't exist — reuse adminFindOne
     await this.adminFindOne(id);
 
     const { tagIds, ...rest } = dto;
 
-    // Only stamp publishedAt when transitioning to PUBLISHED and it's not already set
     const existing = await this.prisma.article.findUnique({
       where: { id },
       select: { status: true, publishedAt: true },
@@ -207,7 +197,6 @@ export class ArticlesService {
       data: {
         ...rest,
         ...(shouldStampPublishedAt ? { publishedAt: new Date() } : {}),
-        // When tagIds are provided (even empty array), replace all tags atomically
         ...(tagIds !== undefined
           ? {
               tags: {
@@ -226,7 +215,7 @@ export class ArticlesService {
   }
 
   async remove(id: string) {
-    await this.adminFindOne(id); // 404 guard
+    await this.adminFindOne(id);
     await this.prisma.article.delete({ where: { id } });
     return { message: 'Article deleted' };
   }

@@ -11,8 +11,6 @@ import {
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
-// ─── Public query params ──────────────────────────────────────────────────────
-
 export class ArticleQueryDto {
   @IsOptional()
   @Type(() => Number)
@@ -61,8 +59,6 @@ export class SearchQueryDto {
   limit?: number = 20;
 }
 
-// ─── Admin article query params ───────────────────────────────────────────────
-
 export class AdminArticleQueryDto {
   @IsOptional()
   @Type(() => Number)
@@ -85,8 +81,6 @@ export class AdminArticleQueryDto {
   @IsString()
   search?: string;
 }
-
-// ─── Create / Update article ──────────────────────────────────────────────────
 
 export class CreateArticleDto {
   @IsString()

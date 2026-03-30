@@ -24,13 +24,11 @@ class NewsletterQueryDto {
 export class AdminNewsletterController {
   constructor(private readonly newsletterService: NewsletterService) {}
 
-  /** GET /api/admin/newsletter?page=1&limit=50 */
   @Get()
   findAll(@Query() query: NewsletterQueryDto) {
     return this.newsletterService.findAll(query.page, query.limit);
   }
 
-  /** DELETE /api/admin/newsletter/:id */
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.newsletterService.remove(id);

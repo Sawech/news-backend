@@ -48,7 +48,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         `Unhandled error: ${exception.message}`,
         exception.stack,
       );
-      // Hide internal details in production
       if (process.env.NODE_ENV !== 'production') {
         message = exception.message;
       }

@@ -20,7 +20,7 @@ const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'none',
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+  maxAge: 7 * 24 * 60 * 60 * 1000,
   path: '/',
 };
 
@@ -28,7 +28,6 @@ const COOKIE_OPTIONS = {
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  /** POST /api/admin/auth/login */
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(
@@ -45,7 +44,6 @@ export class AuthController {
     return { user };
   }
 
-  /** GET /api/admin/auth/me */
   @Get('me')
   @UseGuards(JwtAuthGuard)
   async getMe(@CurrentUser() user: JwtPayload) {
@@ -53,7 +51,6 @@ export class AuthController {
     return { data };
   }
 
-  /** DELETE /api/admin/auth/login  (logout) */
   @Delete('login')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)

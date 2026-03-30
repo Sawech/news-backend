@@ -25,13 +25,13 @@ export class TickersService {
   }
 
   async update(id: string, dto: UpdateTickerDto) {
-    await this.findOne(id); // 404 guard
+    await this.findOne(id);
     const data = await this.prisma.ticker.update({ where: { id }, data: dto });
     return { data };
   }
 
   async remove(id: string) {
-    await this.findOne(id); // 404 guard
+    await this.findOne(id);
     await this.prisma.ticker.delete({ where: { id } });
     return { message: 'Ticker deleted' };
   }
