@@ -24,6 +24,10 @@ const ARTICLE_INCLUDE = {
   },
 } as const;
 
+function sanitizeQuery(q: string): string {
+  return q.replace(/[\u200b-\u200f\u202a-\u202e\u2060\ufeff]/g, '').trim();
+}
+
 @Injectable()
 export class ArticlesService {
   constructor(private readonly prisma: PrismaService) {}
@@ -42,7 +46,6 @@ export class ArticlesService {
     } = query;
     const skip = (page - 1) * limit;
 
-    // Build year filter outside the where object so variables are in scope
     let dateFilter = {};
     const now = new Date();
     if (year) {
@@ -109,7 +112,6 @@ export class ArticlesService {
         id: { not: article.id },
       },
       include: ARTICLE_INCLUDE,
-      // orderBy: { publishedAt: 'desc' },
       orderBy: { updatedAt: 'desc' },
       take: 4,
     });
@@ -121,22 +123,35 @@ export class ArticlesService {
     const { q, page = 1, limit = 20, locale } = query;
     const skip = (page - 1) * limit;
 
+    // Sanitize to strip invisible Unicode characters that break Arabic matching
+    const cleanQ = sanitizeQuery(q);
+
+    if (!cleanQ) {
+      return {
+        data: [],
+        query: q,
+        meta: { page, limit, total: 0, totalPages: 0 },
+      };
+    }
+
     const where = {
       status: 'PUBLISHED' as const,
       ...(locale ? { locale } : {}),
       OR: [
-        { title: { contains: q, mode: 'insensitive' as const } },
-        { excerpt: { contains: q, mode: 'insensitive' as const } },
-        { body: { contains: q, mode: 'insensitive' as const } },
-        { category: { name: { contains: q, mode: 'insensitive' as const } } },
+        // Scalar fields on Article — safe to use mode: insensitive
+        { title: { contains: cleanQ, mode: 'insensitive' as const } },
+        { excerpt: { contains: cleanQ, mode: 'insensitive' as const } },
+        { body: { contains: cleanQ, mode: 'insensitive' as const } },
+        // Relation fields — mode: insensitive is NOT supported here; omit it
+        { category: { name: { contains: cleanQ } } },
         {
           tags: {
             some: {
-              tag: { name: { contains: q, mode: 'insensitive' as const } },
+              tag: { name: { contains: cleanQ } },
             },
           },
         },
-        { author: { name: { contains: q, mode: 'insensitive' as const } } },
+        { author: { name: { contains: cleanQ } } },
       ],
     };
 
@@ -144,7 +159,6 @@ export class ArticlesService {
       this.prisma.article.findMany({
         where,
         include: ARTICLE_INCLUDE,
-        // orderBy: { publishedAt: 'desc' },
         orderBy: { updatedAt: 'desc' },
         skip,
         take: limit,
@@ -213,7 +227,6 @@ export class ArticlesService {
       data: {
         ...rest,
         userId,
-        // publishedAt: dto.status === 'PUBLISHED' ? new Date() : undefined,
         tags: tagIds?.length
           ? {
               create: tagIds.map((tagId) => ({
@@ -233,20 +246,10 @@ export class ArticlesService {
 
     const { tagIds, ...rest } = dto;
 
-    // const existing = await this.prisma.article.findUnique({
-    //   where: { id },
-    //   select: { status: true, publishedAt: true },
-    // });
-    // const shouldStampPublishedAt =
-    //   rest.status === 'PUBLISHED' &&
-    //   existing?.status !== 'PUBLISHED' &&
-    //   !existing?.publishedAt;
-
     const article = await this.prisma.article.update({
       where: { id },
       data: {
         ...rest,
-        // ...(shouldStampPublishedAt ? { publishedAt: new Date() } : {}),
         ...(tagIds !== undefined
           ? {
               tags: {

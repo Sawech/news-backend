@@ -18,12 +18,6 @@ export class OpinionsService {
     return { data };
   }
 
-  // async findBySlug(slug: string) {
-  //   const opinion = await this.prisma.opinion.findUnique({ where: { slug } });
-  //   if (!opinion) throw new NotFoundException(`Opinion "${slug}" not found`);
-  //   return { data: opinion };
-  // }
-
   async adminFindAll() {
     const data = await this.prisma.opinion.findMany({
       orderBy: { pubName: 'asc' },

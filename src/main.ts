@@ -30,13 +30,10 @@ async function bootstrap() {
     }),
   );
 
-  // ── Global Exception Filter ───────────────────────────────────────────────
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  // ── Global Guards ─────────────────────────────────────────────────────────
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  // ── Listen ────────────────────────────────────────────────────────────────
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
 
