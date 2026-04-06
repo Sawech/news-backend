@@ -20,7 +20,12 @@ async function main() {
   const hashedPassword = await bcrypt.hash('admin123!', 12);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@chronicler.com' },
-    update: {},
+    update: {
+      email: 'admin@chronicler.com',
+      password: hashedPassword,
+      name: 'Admin User',
+      role: 'ADMIN',
+    },
     create: {
       email: 'admin@chronicler.com',
       password: hashedPassword,
@@ -37,7 +42,12 @@ async function main() {
     // ── English ──
     prisma.category.upsert({
       where: { slug: 'world' },
-      update: {},
+      update: {
+        name: 'World',
+        slug: 'world',
+        description: 'Global news and international affairs',
+        locale: 'en',
+      },
       create: {
         name: 'World',
         slug: 'world',
@@ -47,7 +57,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'politics' },
-      update: {},
+      update: {
+        name: 'Politics',
+        slug: 'politics',
+        description: 'Political analysis and commentary',
+        locale: 'en',
+      },
       create: {
         name: 'Politics',
         slug: 'politics',
@@ -57,7 +72,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'tech' },
-      update: {},
+      update: {
+        name: 'Tech',
+        slug: 'tech',
+        description: 'Technology, innovation, and digital culture',
+        locale: 'en',
+      },
       create: {
         name: 'Tech',
         slug: 'tech',
@@ -67,7 +87,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'business' },
-      update: {},
+      update: {
+        name: 'Business',
+        slug: 'business',
+        description: 'Markets, economics, and corporate news',
+        locale: 'en',
+      },
       create: {
         name: 'Business',
         slug: 'business',
@@ -77,7 +102,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'culture' },
-      update: {},
+      update: {
+        name: 'Culture',
+        slug: 'culture',
+        description: 'Arts, entertainment, and society',
+        locale: 'en',
+      },
       create: {
         name: 'Culture',
         slug: 'culture',
@@ -87,7 +117,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'science' },
-      update: {},
+      update: {
+        name: 'Science',
+        slug: 'science',
+        description: 'Scientific discovery and research',
+        locale: 'en',
+      },
       create: {
         name: 'Science',
         slug: 'science',
@@ -99,7 +134,12 @@ async function main() {
     // ── French ──
     prisma.category.upsert({
       where: { slug: 'world-fr' },
-      update: {},
+      update: {
+        name: 'Monde',
+        slug: 'world-fr',
+        description: 'Actualités mondiales et affaires internationales',
+        locale: 'fr',
+      },
       create: {
         name: 'Monde',
         slug: 'world-fr',
@@ -109,7 +149,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'politics-fr' },
-      update: {},
+      update: {
+        name: 'Politique',
+        slug: 'politics-fr',
+        description: 'Analyse politique et commentaires',
+        locale: 'fr',
+      },
       create: {
         name: 'Politique',
         slug: 'politics-fr',
@@ -119,7 +164,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'tech-fr' },
-      update: {},
+      update: {
+        name: 'Tech',
+        slug: 'tech-fr',
+        description: 'Technologie, innovation et culture numérique',
+        locale: 'fr',
+      },
       create: {
         name: 'Tech',
         slug: 'tech-fr',
@@ -129,7 +179,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'business-fr' },
-      update: {},
+      update: {
+        name: 'Économie',
+        slug: 'business-fr',
+        description: 'Marchés, économie et actualités des entreprises',
+        locale: 'fr',
+      },
       create: {
         name: 'Économie',
         slug: 'business-fr',
@@ -139,7 +194,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'culture-fr' },
-      update: {},
+      update: {
+        name: 'Culture',
+        slug: 'culture-fr',
+        description: 'Arts, divertissement et société',
+        locale: 'fr',
+      },
       create: {
         name: 'Culture',
         slug: 'culture-fr',
@@ -149,7 +209,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'science-fr' },
-      update: {},
+      update: {
+        name: 'Sciences',
+        slug: 'science-fr',
+        description: 'Découvertes scientifiques et recherche',
+        locale: 'fr',
+      },
       create: {
         name: 'Sciences',
         slug: 'science-fr',
@@ -161,7 +226,12 @@ async function main() {
     // ── Arabic ──
     prisma.category.upsert({
       where: { slug: 'world-ar' },
-      update: {},
+      update: {
+        name: 'العالم',
+        slug: 'world-ar',
+        description: 'أخبار عالمية وشؤون دولية',
+        locale: 'ar',
+      },
       create: {
         name: 'العالم',
         slug: 'world-ar',
@@ -171,7 +241,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'politics-ar' },
-      update: {},
+      update: {
+        name: 'السياسة',
+        slug: 'politics-ar',
+        description: 'تحليلات سياسية وتعليقات',
+        locale: 'ar',
+      },
       create: {
         name: 'السياسة',
         slug: 'politics-ar',
@@ -181,7 +256,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'tech-ar' },
-      update: {},
+      update: {
+        name: 'التكنولوجيا',
+        slug: 'tech-ar',
+        description: 'التكنولوجيا والابتكار والثقافة الرقمية',
+        locale: 'ar',
+      },
       create: {
         name: 'التكنولوجيا',
         slug: 'tech-ar',
@@ -191,7 +271,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'business-ar' },
-      update: {},
+      update: {
+        name: 'الأعمال',
+        slug: 'business-ar',
+        description: 'الأسواق والاقتصاد وأخبار الشركات',
+        locale: 'ar',
+      },
       create: {
         name: 'الأعمال',
         slug: 'business-ar',
@@ -201,7 +286,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'culture-ar' },
-      update: {},
+      update: {
+        name: 'الثقافة',
+        slug: 'culture-ar',
+        description: 'الفنون والترفيه والمجتمع',
+        locale: 'ar',
+      },
       create: {
         name: 'الثقافة',
         slug: 'culture-ar',
@@ -211,7 +301,12 @@ async function main() {
     }),
     prisma.category.upsert({
       where: { slug: 'science-ar' },
-      update: {},
+      update: {
+        name: 'العلوم',
+        slug: 'science-ar',
+        description: 'الاكتشافات العلمية والبحوث',
+        locale: 'ar',
+      },
       create: {
         name: 'العلوم',
         slug: 'science-ar',
@@ -260,7 +355,14 @@ async function main() {
     // ── English ──
     prisma.opinion.upsert({
       where: { id: 1 },
-      update: {},
+      update: {
+        pubName: 'Elena Thorne',
+        content:
+          'The race for AI supremacy is no longer between companies — it is between nations. We need a global treaty before it is too late.',
+        subject: 'The Geopolitics of Artificial Intelligence',
+        linkUrl: 'http://example.com/opinion/ai-geopolitics',
+        locale: 'en',
+      },
       create: {
         pubName: 'Elena Thorne',
         content:
@@ -272,7 +374,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 2 },
-      update: {},
+      update: {
+        pubName: 'Julian Marsh',
+        content:
+          'Digital borders are the new iron curtain. Sovereign internet policies fragment the commons and ultimately hurt the citizens they claim to protect.',
+        subject: 'Data Sovereignty Is a False Promise',
+        linkUrl: 'http://example.com/opinion/data-sovereignty',
+        locale: 'en',
+      },
       create: {
         pubName: 'Julian Marsh',
         content:
@@ -284,7 +393,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 3 },
-      update: {},
+      update: {
+        pubName: 'Sara Okonkwo',
+        content:
+          'Climate finance pledges at COP summits are not worth the paper they are printed on until wealthier nations deliver on their overdue commitments.',
+        subject: 'Empty Pledges, Rising Seas',
+        linkUrl: 'http://example.com/opinion/climate-finance',
+        locale: 'en',
+      },
       create: {
         pubName: 'Sara Okonkwo',
         content:
@@ -298,7 +414,14 @@ async function main() {
     // ── French ──
     prisma.opinion.upsert({
       where: { id: 4 },
-      update: {},
+      update: {
+        pubName: 'Claire Fontaine',
+        content:
+          "La course à la suprématie de l'IA n'oppose plus seulement des entreprises, mais des nations entières. Un traité mondial s'impose avant qu'il ne soit trop tard.",
+        subject: "La géopolitique de l'intelligence artificielle",
+        linkUrl: 'http://example.com/opinion/ia-geopolitique',
+        locale: 'fr',
+      },
       create: {
         pubName: 'Claire Fontaine',
         content:
@@ -310,7 +433,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 5 },
-      update: {},
+      update: {
+        pubName: 'Marc Delacroix',
+        content:
+          "Les frontières numériques sont le nouveau rideau de fer. La souveraineté des données fragmente les biens communs et nuit en fin de compte aux citoyens qu'elle prétend protéger.",
+        subject: 'La souveraineté des données, une fausse promesse',
+        linkUrl: 'http://example.com/opinion/souverainete-donnees',
+        locale: 'fr',
+      },
       create: {
         pubName: 'Marc Delacroix',
         content:
@@ -322,7 +452,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 6 },
-      update: {},
+      update: {
+        pubName: 'Amina Rousseau',
+        content:
+          "Les promesses de financement climatique lors des sommets de la COP ne valent rien tant que les pays riches n'honorent pas leurs engagements en retard.",
+        subject: 'Promesses creuses, mers montantes',
+        linkUrl: 'http://example.com/opinion/financement-climatique',
+        locale: 'fr',
+      },
       create: {
         pubName: 'Amina Rousseau',
         content:
@@ -336,7 +473,14 @@ async function main() {
     // ── Arabic ──
     prisma.opinion.upsert({
       where: { id: 7 },
-      update: {},
+      update: {
+        pubName: 'ليلى الأمين',
+        content:
+          'لم يعد السباق نحو الهيمنة في مجال الذكاء الاصطناعي بين الشركات فحسب، بل بين الدول. نحن بحاجة إلى معاهدة دولية قبل فوات الأوان.',
+        subject: 'الجيوسياسية للذكاء الاصطناعي',
+        linkUrl: 'http://example.com/opinion/ai-geopolitics-ar',
+        locale: 'ar',
+      },
       create: {
         pubName: 'ليلى الأمين',
         content:
@@ -348,7 +492,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 8 },
-      update: {},
+      update: {
+        pubName: 'كريم منصور',
+        content:
+          'الحدود الرقمية هي ستار الحديد الجديد. سياسات السيادة على الإنترنت تُجزّئ الفضاء المشترك وتضر في نهاية المطاف بالمواطنين الذين تدّعي حمايتهم.',
+        subject: 'سيادة البيانات وهمٌ زائف',
+        linkUrl: 'http://example.com/opinion/data-sovereignty-ar',
+        locale: 'ar',
+      },
       create: {
         pubName: 'كريم منصور',
         content:
@@ -360,7 +511,14 @@ async function main() {
     }),
     prisma.opinion.upsert({
       where: { id: 9 },
-      update: {},
+      update: {
+        pubName: 'نور الحسن',
+        content:
+          'تعهدات تمويل المناخ في قمم مؤتمر الأطراف لا قيمة لها ما لم تفِ الدول الغنية بالتزاماتها المتأخرة.',
+        subject: 'وعود فارغة وبحار مرتفعة',
+        linkUrl: 'http://example.com/opinion/climate-finance-ar',
+        locale: 'ar',
+      },
       create: {
         pubName: 'نور الحسن',
         content:
@@ -380,66 +538,66 @@ async function main() {
     // ── English ──
     prisma.tag.upsert({
       where: { id: '1' },
-      update: {},
+      update: { name: 'Artificial Intelligence', locale: 'en' },
       create: { name: 'Artificial Intelligence', locale: 'en' },
     }),
     prisma.tag.upsert({
       where: { id: '2' },
-      update: {},
+      update: { name: 'Climate', locale: 'en' },
       create: { name: 'Climate', locale: 'en' },
     }),
     prisma.tag.upsert({
       where: { id: '3' },
-      update: {},
+      update: { name: 'Markets', locale: 'en' },
       create: { name: 'Markets', locale: 'en' },
     }),
     prisma.tag.upsert({
       where: { id: '4' },
-      update: {},
+      update: { name: 'Geopolitics', locale: 'en' },
       create: { name: 'Geopolitics', locale: 'en' },
     }),
 
     // ── French ──
     prisma.tag.upsert({
       where: { id: '5' },
-      update: {},
+      update: { name: 'Intelligence Artificielle', locale: 'fr' },
       create: { name: 'Intelligence Artificielle', locale: 'fr' },
     }),
     prisma.tag.upsert({
       where: { id: '6' },
-      update: {},
+      update: { name: 'Climat', locale: 'fr' },
       create: { name: 'Climat', locale: 'fr' },
     }),
     prisma.tag.upsert({
       where: { id: '7' },
-      update: {},
+      update: { name: 'Marchés', locale: 'fr' },
       create: { name: 'Marchés', locale: 'fr' },
     }),
     prisma.tag.upsert({
       where: { id: '8' },
-      update: {},
+      update: { name: 'Géopolitique', locale: 'fr' },
       create: { name: 'Géopolitique', locale: 'fr' },
     }),
 
     // ── Arabic ──
     prisma.tag.upsert({
       where: { id: '9' },
-      update: {},
+      update: { name: 'الذكاء الاصطناعي', locale: 'ar' },
       create: { name: 'الذكاء الاصطناعي', locale: 'ar' },
     }),
     prisma.tag.upsert({
       where: { id: '10' },
-      update: {},
+      update: { name: 'المناخ', locale: 'ar' },
       create: { name: 'المناخ', locale: 'ar' },
     }),
     prisma.tag.upsert({
       where: { id: '11' },
-      update: {},
+      update: { name: 'الأسواق', locale: 'ar' },
       create: { name: 'الأسواق', locale: 'ar' },
     }),
     prisma.tag.upsert({
       where: { id: '12' },
-      update: {},
+      update: { name: 'الجيوسياسية', locale: 'ar' },
       create: { name: 'الجيوسياسية', locale: 'ar' },
     }),
   ]);
@@ -457,7 +615,11 @@ async function main() {
   // ─────────────────────────────────────────────
   const author1 = await prisma.author.upsert({
     where: { id: '1' },
-    update: {},
+    update: {
+      name: 'Elena Thorne',
+      bio: 'Technology Editor with 12 years covering Silicon Valley and emerging tech.',
+      avatarUrl: 'https://i.pravatar.cc/120?u=elena-thorne',
+    },
     create: {
       name: 'Elena Thorne',
       bio: 'Technology Editor with 12 years covering Silicon Valley and emerging tech.',
@@ -466,7 +628,11 @@ async function main() {
   });
   const author2 = await prisma.author.upsert({
     where: { id: '2' },
-    update: {},
+    update: {
+      name: 'Julian Marsh',
+      bio: 'Senior Correspondent, World Affairs.',
+      avatarUrl: 'https://i.pravatar.cc/120?u=julian-marsh',
+    },
     create: {
       name: 'Julian Marsh',
       bio: 'Senior Correspondent, World Affairs.',
@@ -549,7 +715,30 @@ async function main() {
   // ── Article 1 — EN ──────────────────────────
   const article1En = await prisma.article.upsert({
     where: { slug: 'architecture-of-silence-global-data-sovereignty' },
-    update: {},
+    update: {
+      title:
+        'The Architecture of Silence: Navigating the New Global Data Sovereignty',
+      slug: 'architecture-of-silence-global-data-sovereignty',
+      locale: 'en',
+      excerpt:
+        'As nations construct digital borders with physical precision, the dream of a borderless internet faces its most significant structural challenge since inception.',
+      body: `<p>The boundaries of the internet as we know it are dissolving at the seams. For three decades, the promise of a global, frictionless network of information underpinned entire economies and democratic movements. That promise is now under siege.</p>
+<h2>Digital Borders, Physical Consequences</h2>
+<p>From the Great Firewall of China to the European GDPR regime, the fragmentation of the internet into sovereign digital territories is accelerating. What was once dismissed as authoritarian overreach is now a bipartisan consensus in democracies around the world.</p>
+<blockquote>We are no longer debating whether data sovereignty will happen. We are debating how fast, and who will be left behind.</blockquote>
+<p>The cascading effect on global commerce is profound. Multinationals now navigate a patchwork of data localisation laws that require them to store citizen data within national borders, fragmenting what were once unified cloud architectures into costly, siloed regional deployments.</p>
+<h2>The Quiet Redistribution of Power</h2>
+<p>What's most striking is not the technological implications, but the geopolitical ones. Control over data infrastructure has become the new petroleum — the defining resource of 21st century statecraft.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200',
+      status: 'PUBLISHED',
+      featured: true,
+      trending: true,
+      readTime: 8,
+      authorId: author2.id,
+      categoryId: cat.en.world.id,
+      userId: admin.id,
+    },
     create: {
       title:
         'The Architecture of Silence: Navigating the New Global Data Sovereignty',
@@ -579,14 +768,37 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article1En.id, tagId: tag.en.geo.id },
     },
-    update: {},
+    update: { articleId: article1En.id, tagId: tag.en.geo.id },
     create: { articleId: article1En.id, tagId: tag.en.geo.id },
   });
 
   // ── Article 1 — FR ──────────────────────────
   const article1Fr = await prisma.article.upsert({
     where: { slug: 'architecture-du-silence-souverainete-donnees' },
-    update: {},
+    update: {
+      title:
+        "L'Architecture du silence : naviguer dans la nouvelle souveraineté mondiale des données",
+      slug: 'architecture-du-silence-souverainete-donnees',
+      locale: 'fr',
+      excerpt:
+        "Alors que les nations construisent des frontières numériques avec une précision physique, le rêve d'un internet sans frontières fait face à son défi structurel le plus important depuis sa création.",
+      body: `<p>Les frontières de l'internet tel que nous le connaissons se dissolvent. Pendant trois décennies, la promesse d'un réseau mondial d'information sans friction a soutenu des économies entières et des mouvements démocratiques. Cette promesse est désormais assiégée.</p>
+<h2>Frontières numériques, conséquences physiques</h2>
+<p>Du Grand Pare-feu de Chine au régime européen du RGPD, la fragmentation d'internet en territoires numériques souverains s'accélère. Ce qui était autrefois considéré comme un abus autoritaire est désormais un consensus bipartisan dans les démocraties du monde entier.</p>
+<blockquote>Nous ne débattons plus de savoir si la souveraineté des données va se produire. Nous débattons de la vitesse à laquelle elle progresse, et de qui sera laissé pour compte.</blockquote>
+<p>L'effet en cascade sur le commerce mondial est profond. Les multinationales naviguent désormais dans un patchwork de lois sur la localisation des données qui les obligent à stocker les données des citoyens à l'intérieur des frontières nationales.</p>
+<h2>La redistribution silencieuse du pouvoir</h2>
+<p>Ce qui est le plus frappant n'est pas les implications technologiques, mais les implications géopolitiques. Le contrôle de l'infrastructure des données est devenu le nouveau pétrole — la ressource définissante de la politique d'État du XXIe siècle.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200',
+      status: 'PUBLISHED',
+      featured: true,
+      trending: true,
+      readTime: 8,
+      authorId: author2.id,
+      categoryId: cat.fr.world.id,
+      userId: admin.id,
+    },
     create: {
       title:
         "L'Architecture du silence : naviguer dans la nouvelle souveraineté mondiale des données",
@@ -616,14 +828,36 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article1Fr.id, tagId: tag.fr.geo.id },
     },
-    update: {},
+    update: { articleId: article1Fr.id, tagId: tag.fr.geo.id },
     create: { articleId: article1Fr.id, tagId: tag.fr.geo.id },
   });
 
   // ── Article 1 — AR ──────────────────────────
   const article1Ar = await prisma.article.upsert({
     where: { slug: 'mimarat-alsamt-siadat-albianat' },
-    update: {},
+    update: {
+      title: 'معمارية الصمت: التنقل في سيادة البيانات العالمية الجديدة',
+      slug: 'mimarat-alsamt-siadat-albianat',
+      locale: 'ar',
+      excerpt:
+        'مع إنشاء الدول حدوداً رقمية بدقة فائقة، يواجه حلم الإنترنت عديم الحدود أكبر تحدياته الهيكلية منذ نشأته.',
+      body: `<p>حدود الإنترنت كما نعرفه تتلاشى. على مدى ثلاثة عقود، دعمت وعود الشبكة العالمية السلسة اقتصادات بأكملها وحركات ديمقراطية. هذا الوعد بات تحت الحصار.</p>
+<h2>حدود رقمية، عواقب مادية</h2>
+<p>من جدار الحماية الصيني العظيم إلى نظام اللائحة الأوروبية العامة لحماية البيانات، يتسارع تفتت الإنترنت إلى أقاليم رقمية ذات سيادة. ما كان يُعتبر تجاوزاً استبدادياً أصبح اليوم توافقاً يتجاوز الحزبية في الديمقراطيات حول العالم.</p>
+<blockquote>لم نعد نناقش ما إذا كانت سيادة البيانات ستحدث. نناقش مدى سرعتها، ومن سيتخلف عنها.</blockquote>
+<p>التأثير المتسلسل على التجارة العالمية عميق. تتنقل الشركات متعددة الجنسيات الآن في شبكة من قوانين توطين البيانات التي تلزمها بتخزين بيانات المواطنين داخل الحدود الوطنية.</p>
+<h2>إعادة التوزيع الهادئة للسلطة</h2>
+<p>الأكثر لفتاً للانتباه ليس التداعيات التكنولوجية، بل الجيوسياسية. أصبح التحكم في البنية التحتية للبيانات النفطَ الجديد — المورد المحدِّد لفن الحكم في القرن الحادي والعشرين.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200',
+      status: 'PUBLISHED',
+      featured: true,
+      trending: true,
+      readTime: 8,
+      authorId: author2.id,
+      categoryId: cat.ar.world.id,
+      userId: admin.id,
+    },
     create: {
       title: 'معمارية الصمت: التنقل في سيادة البيانات العالمية الجديدة',
       slug: 'mimarat-alsamt-siadat-albianat',
@@ -652,14 +886,35 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article1Ar.id, tagId: tag.ar.geo.id },
     },
-    update: {},
+    update: { articleId: article1Ar.id, tagId: tag.ar.geo.id },
     create: { articleId: article1Ar.id, tagId: tag.ar.geo.id },
   });
 
   // ── Article 2 — EN ──────────────────────────
   const article2En = await prisma.article.upsert({
     where: { slug: 'silicon-horizon-biological-computing' },
-    update: {},
+    update: {
+      title:
+        'The Silicon Horizon: Why the Next Era of Computing Will Be Biological',
+      slug: 'silicon-horizon-biological-computing',
+      locale: 'en',
+      excerpt:
+        "As Moore's Law hits physical limits, the industry is looking at DNA and synthetic neural paths to redefine what intelligence looks like.",
+      body: `<p>The boundaries of what we define as a computer are dissolving. For seven decades, we have relied on the elegant, binary simplicity of silicon transistors. We grew them smaller, packed them tighter, and pushed them faster until we arrived at the current era of generative intelligence. But the wall is looming.</p>
+<h2>Beyond the Binary Gate</h2>
+<p>Enter biological computing. While traditional chips operate on high and low voltages, the biological systems of the human brain operate on chemical gradients and synaptic plasticity. A single human brain performs 10^16 operations per second while consuming roughly 20 watts.</p>
+<blockquote>We are no longer building machines that mimic life; we are teaching life to perform logic. The future is not in the metal, but in the marrow.</blockquote>
+<p>Researchers at the Zurich Institute for Bio-Digital systems have successfully integrated live neuron clusters onto traditional substrate. These organoid chips aren't just processing data; they are learning from it in real-time without the need for traditional backpropagation algorithms.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200',
+      status: 'PUBLISHED',
+      featured: false,
+      trending: true,
+      readTime: 12,
+      authorId: author1.id,
+      categoryId: cat.en.tech.id,
+      userId: admin.id,
+    },
     create: {
       title:
         'The Silicon Horizon: Why the Next Era of Computing Will Be Biological',
@@ -687,14 +942,35 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article2En.id, tagId: tag.en.ai.id },
     },
-    update: {},
+    update: { articleId: article2En.id, tagId: tag.en.ai.id },
     create: { articleId: article2En.id, tagId: tag.en.ai.id },
   });
 
   // ── Article 2 — FR ──────────────────────────
   const article2Fr = await prisma.article.upsert({
     where: { slug: 'horizon-silicium-informatique-biologique' },
-    update: {},
+    update: {
+      title:
+        "L'Horizon de silicium : pourquoi la prochaine ère informatique sera biologique",
+      slug: 'horizon-silicium-informatique-biologique',
+      locale: 'fr',
+      excerpt:
+        "Alors que la loi de Moore atteint ses limites physiques, l'industrie se tourne vers l'ADN et les voies neurales synthétiques pour redéfinir l'intelligence.",
+      body: `<p>Les frontières de ce que nous définissons comme un ordinateur se dissolvent. Pendant sept décennies, nous avons compté sur la simplicité binaire des transistors en silicium. Nous les avons rendus plus petits, plus denses et plus rapides jusqu'à atteindre l'ère actuelle de l'intelligence générative. Mais le mur approche.</p>
+<h2>Au-delà de la porte binaire</h2>
+<p>Bienvenue dans l'informatique biologique. Alors que les puces traditionnelles fonctionnent sur des tensions hautes et basses, les systèmes biologiques du cerveau humain fonctionnent sur des gradients chimiques et la plasticité synaptique. Un seul cerveau humain effectue 10^16 opérations par seconde en consommant environ 20 watts.</p>
+<blockquote>Nous ne construisons plus des machines qui imitent la vie ; nous apprenons à la vie à effectuer de la logique. Le futur n'est pas dans le métal, mais dans la moelle.</blockquote>
+<p>Des chercheurs de l'Institut zurichois des systèmes bio-numériques ont réussi à intégrer des clusters de neurones vivants sur un substrat traditionnel. Ces puces organoïdes n'apprennent pas seulement les données ; elles apprennent d'elles en temps réel.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200',
+      status: 'PUBLISHED',
+      featured: false,
+      trending: true,
+      readTime: 12,
+      authorId: author1.id,
+      categoryId: cat.fr.tech.id,
+      userId: admin.id,
+    },
     create: {
       title:
         "L'Horizon de silicium : pourquoi la prochaine ère informatique sera biologique",
@@ -722,14 +998,34 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article2Fr.id, tagId: tag.fr.ai.id },
     },
-    update: {},
+    update: { articleId: article2Fr.id, tagId: tag.fr.ai.id },
     create: { articleId: article2Fr.id, tagId: tag.fr.ai.id },
   });
 
   // ── Article 2 — AR ──────────────────────────
   const article2Ar = await prisma.article.upsert({
     where: { slug: 'ufuq-alsilikun-alhawsaba-albiulujia' },
-    update: {},
+    update: {
+      title: 'أفق السيليكون: لماذا ستكون الحقبة القادمة من الحوسبة بيولوجية',
+      slug: 'ufuq-alsilikun-alhawsaba-albiulujia',
+      locale: 'ar',
+      excerpt:
+        'مع اصطدام قانون مور بحدوده المادية، يتجه القطاع نحو الحمض النووي والمسارات العصبية الاصطناعية لإعادة تعريف الذكاء.',
+      body: `<p>حدود ما نعرّفه بالحاسوب تتلاشى. على مدى سبعة عقود، اعتمدنا على البساطة الثنائية الأنيقة لترانزستورات السيليكون. جعلناها أصغر، وضغطناها بشكل أكثر إحكاماً، ودفعناها بشكل أسرع حتى وصلنا إلى حقبة الذكاء التوليدي الحالية. لكن الجدار يلوح في الأفق.</p>
+<h2>ما وراء البوابة الثنائية</h2>
+<p>مرحباً بكم في الحوسبة البيولوجية. في حين تعمل الرقائق التقليدية على جهود عالية ومنخفضة، تعمل الأنظمة البيولوجية للدماغ البشري على التدرجات الكيميائية والمرونة التشابكية. يُجري الدماغ البشري الواحد 10^16 عملية في الثانية مع استهلاك نحو 20 واط فقط.</p>
+<blockquote>لم نعد نبني آلات تحاكي الحياة؛ بل نُعلّم الحياة كيف تؤدي المنطق. المستقبل ليس في المعدن، بل في النخاع.</blockquote>
+<p>نجح باحثون في معهد زيورخ للأنظمة الحيوية الرقمية في دمج مجموعات من الخلايا العصبية الحية على ركيزة تقليدية. هذه الرقائق العضوية لا تعالج البيانات فحسب؛ بل تتعلم منها في الوقت الفعلي.</p>`,
+      imageUrl:
+        'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200',
+      status: 'PUBLISHED',
+      featured: false,
+      trending: true,
+      readTime: 12,
+      authorId: author1.id,
+      categoryId: cat.ar.tech.id,
+      userId: admin.id,
+    },
     create: {
       title: 'أفق السيليكون: لماذا ستكون الحقبة القادمة من الحوسبة بيولوجية',
       slug: 'ufuq-alsilikun-alhawsaba-albiulujia',
@@ -756,7 +1052,7 @@ async function main() {
     where: {
       articleId_tagId: { articleId: article2Ar.id, tagId: tag.ar.ai.id },
     },
-    update: {},
+    update: { articleId: article2Ar.id, tagId: tag.ar.ai.id },
     create: { articleId: article2Ar.id, tagId: tag.ar.ai.id },
   });
 
