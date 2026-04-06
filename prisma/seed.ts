@@ -474,7 +474,7 @@ async function main() {
     prisma.opinion.upsert({
       where: { id: 7 },
       update: {
-        pubName: 'ليلى الأمين',
+        pubName: 'كريم صبري',
         content:
           'لم يعد السباق نحو الهيمنة في مجال الذكاء الاصطناعي بين الشركات فحسب، بل بين الدول. نحن بحاجة إلى معاهدة دولية قبل فوات الأوان.',
         subject: 'الجيوسياسية للذكاء الاصطناعي',
@@ -482,7 +482,7 @@ async function main() {
         locale: 'ar',
       },
       create: {
-        pubName: 'ليلى الأمين',
+        pubName: 'كريم صبري',
         content:
           'لم يعد السباق نحو الهيمنة في مجال الذكاء الاصطناعي بين الشركات فحسب، بل بين الدول. نحن بحاجة إلى معاهدة دولية قبل فوات الأوان.',
         subject: 'الجيوسياسية للذكاء الاصطناعي',
@@ -493,7 +493,7 @@ async function main() {
     prisma.opinion.upsert({
       where: { id: 8 },
       update: {
-        pubName: 'كريم منصور',
+        pubName: 'اسامة كارب',
         content:
           'الحدود الرقمية هي ستار الحديد الجديد. سياسات السيادة على الإنترنت تُجزّئ الفضاء المشترك وتضر في نهاية المطاف بالمواطنين الذين تدّعي حمايتهم.',
         subject: 'سيادة البيانات وهمٌ زائف',
@@ -501,7 +501,7 @@ async function main() {
         locale: 'ar',
       },
       create: {
-        pubName: 'كريم منصور',
+        pubName: 'اسامة كارب',
         content:
           'الحدود الرقمية هي ستار الحديد الجديد. سياسات السيادة على الإنترنت تُجزّئ الفضاء المشترك وتضر في نهاية المطاف بالمواطنين الذين تدّعي حمايتهم.',
         subject: 'سيادة البيانات وهمٌ زائف',
@@ -512,7 +512,7 @@ async function main() {
     prisma.opinion.upsert({
       where: { id: 9 },
       update: {
-        pubName: 'نور الحسن',
+        pubName: 'امين حاسم',
         content:
           'تعهدات تمويل المناخ في قمم مؤتمر الأطراف لا قيمة لها ما لم تفِ الدول الغنية بالتزاماتها المتأخرة.',
         subject: 'وعود فارغة وبحار مرتفعة',
@@ -520,7 +520,7 @@ async function main() {
         locale: 'ar',
       },
       create: {
-        pubName: 'نور الحسن',
+        pubName: 'امين حاسم',
         content:
           'تعهدات تمويل المناخ في قمم مؤتمر الأطراف لا قيمة لها ما لم تفِ الدول الغنية بالتزاماتها المتأخرة.',
         subject: 'وعود فارغة وبحار مرتفعة',
@@ -1058,7 +1058,6 @@ async function main() {
 
   console.log('✅ Sample articles seeded (en/fr/ar)');
   console.log('\n🎉 Database seed complete!\n');
-  console.log('  Admin → email: admin@chronicler.com  |  password: admin123!');
 }
 
 main()

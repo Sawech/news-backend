@@ -1,13 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateTagDto } from './dto/tag.dto';
+import { CreateTagDto, TagQueryDto } from './dto/tag.dto';
 
 @Injectable()
 export class TagsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
-    const data = await this.prisma.tag.findMany({ orderBy: { name: 'asc' } });
+  async findAll(query: TagQueryDto = {}) {
+    const data = await this.prisma.tag.findMany({
+      orderBy: { name: 'asc' },
+      where: query.locale ? { locale: query.locale } : undefined,
+    });
     return { data };
   }
 

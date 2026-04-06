@@ -9,3 +9,9 @@ export class CreateTagDto {
   @IsString()
   locale: string;
 }
+
+export class TagQueryDto {
+  @IsOptional()
+  @IsString()
+  locale?: string;
+}
