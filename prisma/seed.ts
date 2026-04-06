@@ -85,26 +85,120 @@ async function main() {
   ]);
   console.log(`✅ ${categories.length} categories`);
 
+  const opinions = await Promise.all([
+    prisma.opinion.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        pubName: 'Ali',
+        content: 'Ali Opinion',
+        subject: 'Subject 1',
+        linkUrl: 'http://example.com/opinion1',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 2 },
+      update: {},
+      create: {
+        pubName: 'Bob',
+        content: 'Bob Opinion',
+        subject: 'Subject 2',
+        linkUrl: 'http://example.com/opinion2',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 3 },
+      update: {},
+      create: {
+        pubName: 'Mohammed',
+        content: 'Mohammed Opinion',
+        subject: 'Subject 3',
+        linkUrl: 'http://example.com/opinion3',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 4 },
+      update: {},
+      create: {
+        pubName: 'Ali FR',
+        content: 'Ali FR Opinion',
+        subject: 'Subject 1 FR',
+        linkUrl: 'http://example.com/opinion1-fr',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 5 },
+      update: {},
+      create: {
+        pubName: 'Bob FR',
+        content: 'Bob FR Opinion',
+        subject: 'Subject 2 FR',
+        linkUrl: 'http://example.com/opinion2-fr',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 6 },
+      update: {},
+      create: {
+        pubName: 'Mohammed FR',
+        content: 'Mohammed FR Opinion',
+        subject: 'Subject 3 FR',
+        linkUrl: 'http://example.com/opinion3-fr',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 7 },
+      update: {},
+      create: {
+        pubName: 'Ali AR',
+        content: 'Ali AR Opinion',
+        subject: 'Subject 1 AR',
+        linkUrl: 'http://example.com/opinion1-ar',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 8 },
+      update: {},
+      create: {
+        pubName: 'Bob AR',
+        content: 'Bob AR Opinion',
+        subject: 'Subject 2 AR',
+        linkUrl: 'http://example.com/opinion2-ar',
+      },
+    }),
+    prisma.opinion.upsert({
+      where: { id: 9 },
+      update: {},
+      create: {
+        pubName: 'Mohammed AR',
+        content: 'Mohammed AR Opinion',
+        subject: 'Subject 3 AR',
+        linkUrl: 'http://example.com/opinion3-ar',
+      },
+    }),
+  ]);
+  console.log(`✅ ${opinions.length} opinions`);
+
   const tags = await Promise.all([
     prisma.tag.upsert({
-      where: { slug: 'ai' },
+      where: { id: '1' },
       update: {},
-      create: { name: 'Artificial Intelligence', slug: 'ai' },
+      create: { name: 'Artificial Intelligence', locale: 'en' },
     }),
     prisma.tag.upsert({
-      where: { slug: 'climate' },
+      where: { id: '2' },
       update: {},
-      create: { name: 'Climate', slug: 'climate' },
+      create: { name: 'Climate', locale: 'en' },
     }),
     prisma.tag.upsert({
-      where: { slug: 'markets' },
+      where: { id: '3' },
       update: {},
-      create: { name: 'Markets', slug: 'markets' },
+      create: { name: 'Markets', locale: 'en' },
     }),
     prisma.tag.upsert({
-      where: { slug: 'geopolitics' },
+      where: { id: '4' },
       update: {},
-      create: { name: 'Geopolitics', slug: 'geopolitics' },
+      create: { name: 'Geopolitics', locale: 'en' },
     }),
   ]);
   console.log(`✅ ${tags.length} tags`);
@@ -170,7 +264,7 @@ async function main() {
       featured: true,
       trending: true,
       readTime: 8,
-      publishedAt: new Date('2024-10-24'),
+      // publishedAt: new Date('2024-10-24'),
       authorId: author2.id,
       categoryId: categories[0].id,
       userId: admin.id,
@@ -203,7 +297,7 @@ async function main() {
       featured: false,
       trending: true,
       readTime: 12,
-      publishedAt: new Date('2024-10-20'),
+      // publishedAt: new Date('2024-10-20'),
       authorId: author1.id,
       categoryId: categories[2].id,
       userId: admin.id,

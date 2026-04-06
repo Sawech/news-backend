@@ -20,7 +20,7 @@ const ARTICLE_INCLUDE = {
     select: { id: true, name: true, slug: true },
   },
   tags: {
-    select: { tag: { select: { name: true, slug: true } } },
+    select: { tag: { select: { name: true, locale: true } } },
   },
 } as const;
 
@@ -29,21 +29,59 @@ export class ArticlesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(query: ArticleQueryDto) {
-    const { page = 1, limit = 20, category, featured, trending } = query;
+    const {
+      page = 1,
+      limit = 20,
+      category,
+      featured,
+      trending,
+      year,
+      month,
+      week,
+      locale,
+    } = query;
     const skip = (page - 1) * limit;
 
+    // Build year filter outside the where object so variables are in scope
+    let dateFilter = {};
+    const now = new Date();
+    if (year) {
+      const y = parseInt(year, 10);
+      if (!isNaN(y)) {
+        dateFilter = {
+          updatedAt: {
+            gte: new Date(y, 0, 1),
+            lt: new Date(y + 1, 0, 1),
+          },
+        };
+      }
+    }
+
+    if (month) {
+      const from = new Date(now);
+      from.setMonth(now.getMonth() - 1);
+      dateFilter = { updatedAt: { lt: from } };
+    }
+
+    if (week) {
+      const from = new Date(now);
+      from.setDate(now.getDate() - 7);
+      dateFilter = { updatedAt: { lt: from } };
+    }
     const where = {
       status: 'PUBLISHED' as const,
       ...(category ? { category: { slug: category } } : {}),
       ...(featured !== undefined ? { featured } : {}),
       ...(trending !== undefined ? { trending } : {}),
+      ...(locale ? { locale } : {}),
+      ...dateFilter,
     };
 
     const [data, total] = await this.prisma.$transaction([
       this.prisma.article.findMany({
         where,
         include: ARTICLE_INCLUDE,
-        orderBy: { publishedAt: 'desc' },
+        orderBy: { updatedAt: 'desc' },
         skip,
         take: limit,
       }),
@@ -71,7 +109,8 @@ export class ArticlesService {
         id: { not: article.id },
       },
       include: ARTICLE_INCLUDE,
-      orderBy: { publishedAt: 'desc' },
+      // orderBy: { publishedAt: 'desc' },
+      orderBy: { updatedAt: 'desc' },
       take: 4,
     });
 
@@ -79,15 +118,25 @@ export class ArticlesService {
   }
 
   async search(query: SearchQueryDto) {
-    const { q, page = 1, limit = 20 } = query;
+    const { q, page = 1, limit = 20, locale } = query;
     const skip = (page - 1) * limit;
 
     const where = {
       status: 'PUBLISHED' as const,
+      ...(locale ? { locale } : {}),
       OR: [
         { title: { contains: q, mode: 'insensitive' as const } },
         { excerpt: { contains: q, mode: 'insensitive' as const } },
         { body: { contains: q, mode: 'insensitive' as const } },
+        { category: { name: { contains: q, mode: 'insensitive' as const } } },
+        {
+          tags: {
+            some: {
+              tag: { name: { contains: q, mode: 'insensitive' as const } },
+            },
+          },
+        },
+        { author: { name: { contains: q, mode: 'insensitive' as const } } },
       ],
     };
 
@@ -95,7 +144,8 @@ export class ArticlesService {
       this.prisma.article.findMany({
         where,
         include: ARTICLE_INCLUDE,
-        orderBy: { publishedAt: 'desc' },
+        // orderBy: { publishedAt: 'desc' },
+        orderBy: { updatedAt: 'desc' },
         skip,
         take: limit,
       }),
@@ -163,7 +213,7 @@ export class ArticlesService {
       data: {
         ...rest,
         userId,
-        publishedAt: dto.status === 'PUBLISHED' ? new Date() : undefined,
+        // publishedAt: dto.status === 'PUBLISHED' ? new Date() : undefined,
         tags: tagIds?.length
           ? {
               create: tagIds.map((tagId) => ({
@@ -183,20 +233,20 @@ export class ArticlesService {
 
     const { tagIds, ...rest } = dto;
 
-    const existing = await this.prisma.article.findUnique({
-      where: { id },
-      select: { status: true, publishedAt: true },
-    });
-    const shouldStampPublishedAt =
-      rest.status === 'PUBLISHED' &&
-      existing?.status !== 'PUBLISHED' &&
-      !existing?.publishedAt;
+    // const existing = await this.prisma.article.findUnique({
+    //   where: { id },
+    //   select: { status: true, publishedAt: true },
+    // });
+    // const shouldStampPublishedAt =
+    //   rest.status === 'PUBLISHED' &&
+    //   existing?.status !== 'PUBLISHED' &&
+    //   !existing?.publishedAt;
 
     const article = await this.prisma.article.update({
       where: { id },
       data: {
         ...rest,
-        ...(shouldStampPublishedAt ? { publishedAt: new Date() } : {}),
+        // ...(shouldStampPublishedAt ? { publishedAt: new Date() } : {}),
         ...(tagIds !== undefined
           ? {
               tags: {

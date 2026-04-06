@@ -12,6 +12,10 @@ export class CreateCategoryDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }
 
 export class UpdateCategoryDto {
@@ -28,4 +32,14 @@ export class UpdateCategoryDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
+}
+
+export class CategoryQueryDto {
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }

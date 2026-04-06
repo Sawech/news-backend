@@ -46,19 +46,33 @@ model Category {
   name        String
   slug        String    @unique
   description String?
+  locale      String        @default("en")
   articles    Article[]
   createdAt   DateTime  @default(now())
 
   @@index([slug])
+  @@index([locale])
+}
+
+model Opinion {
+  id          Int    @id @default(autoincrement())
+  pubName     String?
+  content     String?
+  subject     String?
+  locale      String        @default("en")
+  linkUrl     String?
+  createdAt   DateTime  @default(now())
+  
+  @@index([locale])
 }
 
 model Tag {
   id       String       @id @default(cuid())
   name     String
-  slug     String       @unique
+  locale   String       @default("en")
   articles ArticleTag[]
 
-  @@index([slug])
+  @@index([locale])
 }
 
 model Article {
@@ -68,11 +82,11 @@ model Article {
   excerpt     String
   body        String        @db.Text
   imageUrl    String?
+  locale      String        @default("en")
   status      ArticleStatus @default(DRAFT)
   featured    Boolean       @default(false)
   trending    Boolean       @default(false)
   readTime    Int           @default(5)
-  publishedAt DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
@@ -85,10 +99,11 @@ model Article {
   tags       ArticleTag[]
 
   @@index([slug])
-  @@index([status, publishedAt])
+  @@index([status])
   @@index([categoryId])
   @@index([featured])
   @@index([trending])
+  @@index([locale])
 }
 
 model ArticleTag {
@@ -100,19 +115,13 @@ model ArticleTag {
   @@id([articleId, tagId])
 }
 
-model NewsletterSubscriber {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  createdAt DateTime @default(now())
-
-  @@index([email])
-}
-
 model Ticker {
   id        String   @id @default(cuid())
   content   String
+  locale      String        @default("en")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([createdAt])
+  @@index([locale])
 }

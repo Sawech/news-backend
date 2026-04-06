@@ -8,8 +8,8 @@ import { TickersModule } from './modules/tickers/tickers.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ArticlesModule } from './modules/articles/articles.module';
 import { AuthorsModule } from './modules/authors/authors.module';
-import { NewsletterModule } from './modules/newsletter/newsletter.module';
 import { TagsModule } from './modules/tags/tags.module';
+import { OpinionsModule } from './modules/opinions/opinions.module';
 
 @Module({
   imports: [
@@ -18,9 +18,9 @@ import { TagsModule } from './modules/tags/tags.module';
     TickersModule,
     ArticlesModule,
     AuthorsModule,
-    NewsletterModule,
     CategoriesModule,
     TagsModule,
+    OpinionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

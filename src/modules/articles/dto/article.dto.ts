@@ -38,6 +38,24 @@ export class ArticleQueryDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   trending?: boolean;
+
+  @IsOptional()
+  @IsString()
+  year?: string;
+
+  @IsOptional()
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  month?: boolean;
+
+  @IsOptional()
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  week?: boolean;
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }
 
 export class SearchQueryDto {
@@ -57,6 +75,10 @@ export class SearchQueryDto {
   @Min(1)
   @Max(100)
   limit?: number = 20;
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }
 
 export class AdminArticleQueryDto {
@@ -129,6 +151,10 @@ export class CreateArticleDto {
   @IsOptional()
   @IsEnum(['DRAFT', 'PUBLISHED'])
   status?: 'DRAFT' | 'PUBLISHED';
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }
 
 export class UpdateArticleDto {
@@ -184,4 +210,8 @@ export class UpdateArticleDto {
   @IsOptional()
   @IsEnum(['DRAFT', 'PUBLISHED'])
   status?: 'DRAFT' | 'PUBLISHED';
+
+  @IsOptional()
+  @IsString()
+  locale?: string;
 }

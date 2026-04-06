@@ -4,15 +4,20 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
+import {
+  CategoryQueryDto,
+  CreateCategoryDto,
+  UpdateCategoryDto,
+} from './dto/category.dto';
 
 @Injectable()
 export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(query: CategoryQueryDto) {
     const data = await this.prisma.category.findMany({
       orderBy: { name: 'asc' },
+      where: query.locale ? { locale: query.locale } : undefined,
     });
     return { data };
   }

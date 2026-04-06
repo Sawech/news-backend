@@ -1,14 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateTickerDto, UpdateTickerDto } from './dto/ticker.dto';
+import {
+  CreateTickerDto,
+  TickerQueryDto,
+  UpdateTickerDto,
+} from './dto/ticker.dto';
 
 @Injectable()
 export class TickersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(query: TickerQueryDto = {}) {
     const data = await this.prisma.ticker.findMany({
       orderBy: { createdAt: 'asc' },
+      where: query.locale ? { locale: query.locale } : undefined,
     });
     return { data };
   }
