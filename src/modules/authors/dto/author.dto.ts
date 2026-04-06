@@ -5,10 +5,6 @@ export class CreateAuthorDto {
   @MinLength(2)
   name: string;
 
-  @IsString()
-  @MinLength(2)
-  slug: string;
-
   @IsOptional()
   @IsString()
   bio?: string;
@@ -23,11 +19,6 @@ export class UpdateAuthorDto {
   @IsString()
   @MinLength(2)
   name?: string;
-
-  @IsOptional()
-  @IsString()
-  @MinLength(2)
-  slug?: string;
 
   @IsOptional()
   @IsString()

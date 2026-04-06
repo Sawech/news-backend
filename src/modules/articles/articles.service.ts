@@ -14,7 +14,7 @@ import {
 
 const ARTICLE_INCLUDE = {
   author: {
-    select: { id: true, name: true, slug: true, bio: true, avatarUrl: true },
+    select: { id: true, name: true, bio: true, avatarUrl: true },
   },
   category: {
     select: { id: true, name: true, slug: true },

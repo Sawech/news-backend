@@ -32,13 +32,10 @@ model User {
 model Author {
   id        String    @id @default(cuid())
   name      String
-  slug      String    @unique
   bio       String?
   avatarUrl String?
   articles  Article[]
   createdAt DateTime  @default(now())
-
-  @@index([slug])
 }
 
 model Category {

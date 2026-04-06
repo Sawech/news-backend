@@ -17,35 +17,13 @@ export class AuthorsService {
     return { data };
   }
 
-  async findBySlug(slug: string) {
-    const author = await this.prisma.author.findUnique({ where: { slug } });
-    if (!author) throw new NotFoundException(`Author "${slug}" not found`);
-    return { data: author };
-  }
-
   async create(dto: CreateAuthorDto) {
-    const existing = await this.prisma.author.findUnique({
-      where: { slug: dto.slug },
-      select: { id: true },
-    });
-    if (existing)
-      throw new ConflictException(`Slug "${dto.slug}" already exists`);
-
     const data = await this.prisma.author.create({ data: dto });
     return { data };
   }
 
   async update(id: string, dto: UpdateAuthorDto) {
     await this.findOneById(id);
-
-    if (dto.slug) {
-      const conflict = await this.prisma.author.findFirst({
-        where: { slug: dto.slug, id: { not: id } },
-        select: { id: true },
-      });
-      if (conflict)
-        throw new ConflictException(`Slug "${dto.slug}" already exists`);
-    }
 
     const data = await this.prisma.author.update({ where: { id }, data: dto });
     return { data };

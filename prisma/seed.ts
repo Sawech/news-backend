@@ -204,21 +204,19 @@ async function main() {
   console.log(`✅ ${tags.length} tags`);
 
   const author1 = await prisma.author.upsert({
-    where: { slug: 'elena-thorne' },
+    where: { id: '1' },
     update: {},
     create: {
       name: 'Elena Thorne',
-      slug: 'elena-thorne',
       bio: 'Technology Editor with 12 years covering Silicon Valley and emerging tech.',
       avatarUrl: 'https://i.pravatar.cc/120?u=elena-thorne',
     },
   });
   const author2 = await prisma.author.upsert({
-    where: { slug: 'julian-marsh' },
+    where: { id: '2' },
     update: {},
     create: {
       name: 'Julian Marsh',
-      slug: 'julian-marsh',
       bio: 'Senior Correspondent, World Affairs.',
       avatarUrl: 'https://i.pravatar.cc/120?u=julian-marsh',
     },

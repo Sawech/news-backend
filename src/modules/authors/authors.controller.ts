@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 
 @Controller('api/authors')
@@ -8,10 +8,5 @@ export class AuthorsController {
   @Get()
   findAll() {
     return this.authorsService.findAll();
-  }
-
-  @Get(':slug')
-  findOne(@Param('slug') slug: string) {
-    return this.authorsService.findBySlug(slug);
   }
 }
