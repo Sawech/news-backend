@@ -28,10 +28,11 @@ export class CategoriesService {
     return { data: category };
   }
 
-  async adminFindAll() {
+  async adminFindAll(query: CategoryQueryDto) {
     const data = await this.prisma.category.findMany({
       orderBy: { name: 'asc' },
       include: { _count: { select: { articles: true } } },
+      where: query.locale ? { locale: query.locale } : undefined,
     });
     return { data };
   }
